@@ -1,0 +1,267 @@
+#include <windows.h>
+#include <dlgs.h>
+#include "resource.h"
+
+1 ICON "wavepix.ico"
+
+1 24 "wavepix.exe.Manifest"
+
+1 ACCELERATORS
+{
+    "O", ID_OPEN, VIRTKEY, CONTROL
+    "S", ID_SAVEAS, VIRTKEY, SHIFT, CONTROL
+    "I", ID_ZOOMIN, VIRTKEY, CONTROL
+    "U", ID_ZOOMOUT, VIRTKEY, CONTROL
+    "B", ID_BACK, VIRTKEY, CONTROL
+    VK_F1, ID_ABOUT, VIRTKEY
+}
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+1 MENU
+{
+    POPUP "&File"
+    {
+        MENUITEM "&Open...\tCtrl+O", ID_OPEN
+        MENUITEM "Save &As...\tShift+Ctrl+S", ID_SAVEAS
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit\tAlt+F4", ID_EXIT
+    }
+    POPUP "&Zoom"
+    {
+        MENUITEM "Zoom &In\tCtrl+I", ID_ZOOMIN
+        MENUITEM "Zoom &Out\tCtrl+U", ID_ZOOMOUT
+        MENUITEM SEPARATOR
+        MENUITEM "25%", ID_ZOOM25
+        MENUITEM "50%", ID_ZOOM50
+        MENUITEM "100%", ID_ZOOM100
+        MENUITEM "150%", ID_ZOOM150
+        MENUITEM "200%", ID_ZOOM200
+    }
+    POPUP "&View"
+    {
+        MENUITEM "&Wave Setting", ID_SETTING
+    }
+    POPUP "&Background"
+    {
+        MENUITEM "&Transparent", ID_TRANS
+        MENUITEM "&Background Color...\tCtrl+B", ID_BACK
+    }
+    POPUP "&Help"
+    {
+        MENUITEM "&About WavePix", ID_ABOUT
+    }
+}
+
+IDD_SETTING DIALOG 100, 100, 145, 125
+STYLE DS_MODALFRAME | DS_CENTER | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "Wave Setting"
+FONT 8, "MS Shell Dlg"
+{
+    LTEXT       "&Amplitude:", -1, 10, 12, 40, 12
+    EDITTEXT    IDAMPLITUDE, 55, 10, 35, 14
+    COMBOBOX    IDAMPLITUDE_COMBO, 95, 10, 40, 40, CBS_DROPDOWNLIST | CBS_HASSTRINGS | CBS_NOINTEGRALHEIGHT | WS_TABSTOP | WS_VSCROLL
+    LTEXT       "Wave&length:", -1, 10, 37, 40, 12
+    EDITTEXT    IDWAVELENGTH, 55, 35, 35, 14
+    COMBOBOX    IDWAVELENGTH_COMBO, 95, 35, 40, 40, CBS_DROPDOWNLIST | CBS_HASSTRINGS | CBS_NOINTEGRALHEIGHT | WS_TABSTOP | WS_VSCROLL
+    LTEXT       "&Phase:", -1, 10, 62, 40, 12
+    EDITTEXT    IDPHASE, 55, 60, 35, 14
+    LTEXT       "degree(s)", -1, 95, 62, 30, 12
+    GROUPBOX    "Direction", -1, 10, 85, 120, 35, NOT WS_TABSTOP
+    AUTORADIOBUTTON   "&Horizontal", IDHORIZONTAL, 20, 100, 45, 14, WS_GROUP
+    AUTORADIOBUTTON   "&Vertical", IDVERTICAL, 70, 100, 45, 14
+    CONTROL "OK", IDOK, "BUTTON", BS_DEFPUSHBUTTON | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 40, 130, 45, 14 
+    CONTROL "Cancel", IDCANCEL, "BUTTON", BS_PUSHBUTTON | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 90, 130, 45, 14 
+}
+
+IDD_ABOUT DIALOG 0, 0, 150, 90
+STYLE DS_MODALFRAME | DS_CENTER | WS_CAPTION | WS_SYSMENU
+CAPTION "About WavePix"
+FONT 8, "MS Shell Dlg"
+{
+    ICON    1, -1, 10, 10, 18, 21
+    LTEXT   "WavePix ver. 0.3", -1, 36, 12, 105, 10
+    LTEXT   "Katayama Hirofumi MZ", -1, 35, 30, 105, 10
+    LTEXT   "katayama.hirofumi.mz@gmail.com", -1, 35, 46, 105, 10
+    DEFPUSHBUTTON   "OK", IDOK, 52, 70, 45, 14
+}
+
+STRINGTABLE
+{
+    1, "WavePix by Katayama Hirofumi MZ"
+    2, "%s - WavePix by Katayama Hirofumi MZ"
+    3, "Pictures (*.bmp;*.gif;*.jpg;*.jpeg;*.jpe;*.jfif;*.png)"
+    4, "*.bmp;*.gif;*.jpg;*.jpeg;*.jpe;*.jfif;*.png"
+    5, "All Files (*.*)"
+    6, "*.*"
+    7, "BMP (*.bmp)"
+    8, "*.bmp"
+    9, "GIF (*.gif)"
+    10, "*.gif"
+    11, "JPEG (*.jpg;*.jpeg;*.jpe;*.jfif)"
+    12, "*.jpg;*.jpeg;*.jpe;*.jfif"
+    13, "PNG (*.png)"
+    14, "*.png"
+    16, "Ready"
+    17, "Cannot open file."
+    18, "Cannot save file."
+    19, "Saving into this format may cause some loss of color information.\nDo you want to continue?"
+    20, "Input Background Color"
+    21, "Input GIF's Transparent Color"
+    22, "TIFF (*.tif;*.tiff)"
+    23, "*.tif;*.tiff"
+    24, "%"
+    25, "pixels"
+}
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     0,3,0,0
+PRODUCTVERSION  0,3,0,0
+FILEOS          VOS_NT_WINDOWS32
+FILETYPE        VFT_APP
+{
+    BLOCK "StringFileInfo"
+    {
+        BLOCK "040904B0"
+        {
+            VALUE "CompanyName", "Katayama Hirofumi MZ\0"
+            VALUE "FileDescription", "This program transforms a picture like a wave.\0"
+            VALUE "FileVersion", "0.3\0"
+            VALUE "InternalName", "wavepix\0"
+            VALUE "LegalCopyright", "(C) Katayama Hirofumi MZ. All rights reserved.\0"
+            VALUE "OriginalFilename", "wavepix.exe\0"
+            VALUE "ProductName", "WavePix\0"
+            VALUE "ProductVersion", "0.3\0"
+        }
+    }
+    BLOCK "VarFileInfo"
+    {
+        VALUE "Translation", 0x0409, 0x04B0
+    }
+}
+
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+
+1 MENU
+{
+    POPUP "ファイル(&F)"
+    {
+        MENUITEM "開く(&O)...\tCtrl+O", ID_OPEN
+        MENUITEM "名前を付けて保存(&A)...\tShift+Ctrl+S", ID_SAVEAS
+        MENUITEM SEPARATOR
+        MENUITEM "終了(&X)\tAlt+F4", ID_EXIT
+    }
+    POPUP "ズーム(&Z)"
+    {
+        MENUITEM "ズームイン(&I)\tCtrl+I", ID_ZOOMIN
+        MENUITEM "ズームアウト(&O)\tCtrl+U", ID_ZOOMOUT
+        MENUITEM SEPARATOR
+        MENUITEM "25%", ID_ZOOM25
+        MENUITEM "50%", ID_ZOOM50
+        MENUITEM "100%", ID_ZOOM100
+        MENUITEM "150%", ID_ZOOM150
+        MENUITEM "200%", ID_ZOOM200
+    }
+    POPUP "表示(&V)"
+    {
+        MENUITEM "波の設定(&W)", ID_SETTING
+    }
+    POPUP "背景(&B)"
+    {
+        MENUITEM "背景を透明にする(&T)", ID_TRANS
+        MENUITEM "背景色(&B)...\tCtrl+B", ID_BACK
+    }
+    POPUP "ヘルプ(&H)"
+    {
+        MENUITEM "WavePix について(&A)", ID_ABOUT
+    }
+}
+
+IDD_SETTING DIALOG 100, 100, 130, 125
+STYLE DS_MODALFRAME | DS_CENTER | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOOLWINDOW
+CAPTION "波の設定"
+FONT 9, "ＭＳ Ｐゴシック"
+{
+    LTEXT       "振幅(&A):", -1, 10, 12, 30, 12
+    EDITTEXT    IDAMPLITUDE, 45, 10, 30, 14
+    COMBOBOX    IDAMPLITUDE_COMBO, 80, 10, 40, 45, CBS_DROPDOWNLIST | CBS_HASSTRINGS | CBS_NOINTEGRALHEIGHT | WS_TABSTOP | WS_VSCROLL
+    LTEXT       "波長(&L):", -1, 10, 37, 30, 12
+    EDITTEXT    IDWAVELENGTH, 45, 35, 30, 14
+    COMBOBOX    IDWAVELENGTH_COMBO, 80, 35, 40, 45, CBS_DROPDOWNLIST | CBS_HASSTRINGS | CBS_NOINTEGRALHEIGHT | WS_TABSTOP | WS_VSCROLL
+    LTEXT       "位相(&P):", -1, 10, 62, 32, 12
+    EDITTEXT    IDPHASE, 45, 60, 30, 14
+    LTEXT       "度", -1, 80, 62, 20, 12
+    GROUPBOX    "波の向き", -1, 10, 85, 110, 35, NOT WS_TABSTOP
+    AUTORADIOBUTTON   "横(&H)", IDHORIZONTAL, 20, 100, 35, 14, WS_GROUP
+    AUTORADIOBUTTON   "縦(&V)", IDVERTICAL, 65, 100, 35, 14
+    CONTROL "OK", IDOK, "BUTTON", BS_DEFPUSHBUTTON | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 25, 130, 45, 14 
+    CONTROL "キャンセル", IDCANCEL, "BUTTON", BS_PUSHBUTTON | WS_CHILD | WS_VISIBLE | WS_TABSTOP, 75, 130, 45, 14 
+}
+
+IDD_ABOUT DIALOG 0, 0, 150, 90
+STYLE DS_MODALFRAME | DS_CENTER | WS_CAPTION | WS_SYSMENU
+CAPTION "WavePix について"
+FONT 9, "ＭＳ Ｐゴシック"
+{
+    ICON    1, -1, 10, 10, 18, 21
+    LTEXT   "WavePix ver. 0.3", -1, 36, 12, 105, 10
+    LTEXT   "片山博文MZ", -1, 35, 30, 105, 10
+    LTEXT   "katayama.hirofumi.mz@gmail.com", -1, 35, 46, 105, 10
+    DEFPUSHBUTTON   "OK", IDOK, 52, 70, 45, 14
+}
+
+STRINGTABLE
+{
+    1, "WavePix by 片山博文MZ"
+    2, "%s - WavePix by 片山博文MZ"
+    3, "画像 (*.bmp;*.gif;*.jpg;*.jpeg;*.jpe;*.jfif;*.png;*.tif;*.tiff)"
+    4, "*.bmp;*.gif;*.jpg;*.jpeg;*.jpe;*.jfif;*.png;*.tif;*.tiff"
+    5, "すべてのファイル (*.*)"
+    6, "*.*"
+    7, "BMP (*.bmp)"
+    8, "*.bmp"
+    9, "GIF (*.gif)"
+    10, "*.gif"
+    11, "JPEG (*.jpg;*.jpeg;*.jpe;*.jfif)"
+    12, "*.jpg;*.jpeg;*.jpe;*.jfif"
+    13, "PNG (*.png)"
+    14, "*.png"
+    16, "準備完了"
+    17, "ファイルを開けませんでした。"
+    18, "ファイルを保存できませんでした。"
+    19, "この形式にすると、色彩の情報が失われる可能性があります。\n続行しますか？"
+    20, "背景色の設定"
+    21, "GIFの透過色を設定してください"
+    22, "TIFF (*.tif;*.tiff)"
+    23, "*.tif;*.tiff"
+    24, "%"
+    25, "ピクセル"
+}
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION     0,3,0,0
+PRODUCTVERSION  0,3,0,0
+FILEOS          VOS_NT_WINDOWS32
+FILETYPE        VFT_APP
+{
+    BLOCK "StringFileInfo"
+    {
+        BLOCK "041104B0"
+        {
+            VALUE "CompanyName", "片山博文MZ\0"
+            VALUE "FileDescription", "画像を波状に変形するソフトです。\0"
+            VALUE "FileVersion", "0.3\0"
+            VALUE "InternalName", "wavepix\0"
+            VALUE "LegalCopyright", "(C) 片山博文MZ. All rights reserved.\0"
+            VALUE "OriginalFilename", "wavepix.exe\0"
+            VALUE "ProductName", "WavePix\0"
+            VALUE "ProductVersion", "0.3\0"
+        }
+    }
+    BLOCK "VarFileInfo"
+    {
+        VALUE "Translation", 0x0411, 0x04B0
+    }
+}

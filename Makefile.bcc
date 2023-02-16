@@ -1,0 +1,35 @@
+CC = bcc32
+CFLAGS = -w -O2
+#CFLAGS = -w -v -y
+OBJS =  bitmap.obj gif.obj jpeg.obj png.obj tiff.obj
+
+all: wavepix.exe wave.exe
+
+wavepix.exe: wavepix.rc resource.h wavepix.obj $(OBJS)
+	$(CC) $(CFLAGS) -W -ewavepix.exe wavepix.obj $(OBJS)
+	brc32 wavepix
+
+wave.exe: wave.obj $(OBJS)
+	$(CC) $(CFLAGS) -WC -ewave.exe wave.obj $(OBJS)
+
+wave.obj: wave.c wavepix.h
+	$(CC) -c $(CFLAGS) -owave.obj wave.c
+wavepix.obj: wavepix.c wavepix.h resource.h
+	$(CC) -c $(CFLAGS) -owavepix.obj wavepix.c
+bitmap.obj: bitmap.c
+	$(CC) -c $(CFLAGS) -obitmap.obj bitmap.c
+gif.obj: gif.c
+	$(CC) -c $(CFLAGS) -ogif.obj gif.c
+jpeg.obj: jpeg.c
+	$(CC) -c $(CFLAGS) -ojpeg.obj jpeg.c
+png.obj: png.c
+	$(CC) -c $(CFLAGS) -opng.obj png.c
+tiff.obj: tiff.c
+	$(CC) -c $(CFLAGS) -otiff.obj tiff.c
+
+clean:
+	if exist *.obj del *.obj
+	if exist *.res del *.res
+	if exist *.tds del *.tds
+	if exist *.td2 del *.td2
+	if exist *.tr2 del *.tr2
